@@ -1,125 +1,92 @@
 "use client"
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 const slides = [
   {
-    image: '/images/carasoul3.jpg', // Fixed potential typo
+    image: '/images/carasoul3.jpg', // Verified correct path
     title: 'Welcome to GrowthWayz',
-    subtitle: 'Nurturing Young Minds, Building Bright Futures',
-    description: 'Specialized therapy programs to help children reach their full potential.',
-    cta: 'Schedule Assessment',
+    subtitle: 'Nurturing Young Minds',
+    description: 'Specialized child therapy programs',
+    cta: 'Schedule Assessment'
   },
   {
-    image: '/images/carasoul4.jpg', // Fixed potential typo
+    image: '/images/carasoul4.jpg', // Verified correct path
     title: 'Expert Child Development',
-    subtitle: 'Compassionate Care for Your Little Ones',
-    description: 'Evidence-based approaches to support your child\'s development.',
-    cta: 'Meet Our Therapists',
-  },
+    subtitle: 'Compassionate Care',
+    description: 'Evidence-based approaches',
+    cta: 'Meet Our Therapists'
+  }
 ];
 
-const Carousel = () => {
+export default function Carousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
-  // Preload images
   useEffect(() => {
-    let loadedCount = 0;
-    const totalImages = slides.length;
-    
-    slides.forEach(slide => {
-      const img = new Image();
-      img.src = slide.image;
-      img.onload = () => {
-        loadedCount++;
-        if (loadedCount === totalImages) setImagesLoaded(true);
-      };
-      img.onerror = () => {
-        console.error(`Failed to load image: ${slide.image}`);
-        loadedCount++;
-      };
-    });
+    setIsMounted(true);
+    const interval = setInterval(() => {
+      setCurrentSlide(prev => (prev + 1) % slides.length);
+    }, 5000);
+    return () => clearInterval(interval);
   }, []);
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  };
-
-  useEffect(() => {
-    if (!imagesLoaded) return;
-    const interval = setInterval(nextSlide, 5000);
-    return () => clearInterval(interval);
-  }, [imagesLoaded]);
-
-  if (!imagesLoaded) return <div className="w-full h-[300px] md:h-[350px] bg-gray-200 animate-pulse"></div>;
+  if (!isMounted) return (
+    <div className="w-full h-[300px] md:h-[350px] bg-gray-100 flex items-center justify-center">
+      <p>Loading carousel...</p>
+    </div>
+  );
 
   return (
     <div className="relative w-full h-[300px] md:h-[350px] overflow-hidden">
       {slides.map((slide, index) => (
-        <div
+        <div 
           key={index}
-          className={`absolute top-0 left-0 w-full h-full transition-opacity duration-1000 ease-in-out ${
-            index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
-          }`}
-          style={{
-            backgroundImage: `url("${slide.image}")`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-          }}
+          className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}
         >
-          <div className="absolute inset-0 bg-black/30"></div>
+          {/* Fallback div if image fails */}
+          <div className="absolute inset-0 bg-gray-800 z-0"></div>
           
-          <div className="relative w-full h-full flex flex-col justify-center items-center text-center px-4 z-20 text-white">
-            <h2 className="text-2xl md:text-3xl font-bold mb-2 drop-shadow-md">{slide.title}</h2>
-            <p className="text-lg md:text-xl mb-3 drop-shadow-md">{slide.subtitle}</p>
-            <p className="text-sm md:text-base mb-4 max-w-md drop-shadow-md">{slide.description}</p>
-            <button className="bg-yellow-400 hover:bg-yellow-300 text-gray-900 font-medium px-4 py-2 rounded-full text-sm md:text-base transition-all duration-300">
+          <Image
+            src={slide.image}
+            alt=""
+            fill
+            className="object-cover z-10"
+            priority={index === 0}
+            onError={(e) => {
+              console.error('Image failed to load:', slide.image);
+              e.currentTarget.style.display = 'none';
+            }}
+          />
+          
+          <div className="relative z-20 h-full flex flex-col justify-center items-center text-center text-white px-4">
+            <h2 className="text-2xl md:text-3xl font-bold mb-2">{slide.title}</h2>
+            <p className="text-lg md:text-xl mb-3">{slide.subtitle}</p>
+            <p className="text-base mb-4 max-w-md">{slide.description}</p>
+            <button className="bg-yellow-400 hover:bg-yellow-300 text-gray-900 px-4 py-2 rounded-full">
               {slide.cta}
             </button>
           </div>
         </div>
       ))}
 
-      {/* Navigation arrows */}
+      {/* Navigation Controls */}
       <button 
-        onClick={prevSlide}
-        className="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-white/30 hover:bg-white/50 text-white p-1 rounded-full shadow-md transition-all duration-300"
-        aria-label="Previous slide"
+        onClick={() => setCurrentSlide(prev => (prev - 1 + slides.length) % slides.length)}
+        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 p-2 rounded-full z-30"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-        </svg>
+        {/* Left arrow icon */}
       </button>
-      <button 
-        onClick={nextSlide}
-        className="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-white/30 hover:bg-white/50 text-white p-1 rounded-full shadow-md transition-all duration-300"
-        aria-label="Next slide"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
-
-      {/* Indicator dots */}
-      <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-1 z-20">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentSlide(index)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${
-              index === currentSlide ? 'bg-yellow-400 w-4' : 'bg-white/50'
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
+      
+      <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-30">
+        {slides.map((_, i) => (
+          <button 
+            key={i}
+            onClick={() => setCurrentSlide(i)}
+            className={`w-3 h-3 rounded-full ${i === currentSlide ? 'bg-white' : 'bg-white/50'}`}
           />
         ))}
       </div>
     </div>
   );
-};
-
-export default Carousel;
+}
