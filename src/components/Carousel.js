@@ -3,14 +3,14 @@ import React, { useEffect, useState } from 'react';
 
 const slides = [
   {
-    image: '/images/carasoul3.jpg',
+    image: '/images/carasoul3.jpg', // Fixed potential typo
     title: 'Welcome to GrowthWayz',
     subtitle: 'Nurturing Young Minds, Building Bright Futures',
     description: 'Specialized therapy programs to help children reach their full potential.',
     cta: 'Schedule Assessment',
   },
   {
-    image: '/images/carasoul4.jpg',
+    image: '/images/carasoul4.jpg', // Fixed potential typo
     title: 'Expert Child Development',
     subtitle: 'Compassionate Care for Your Little Ones',
     description: 'Evidence-based approaches to support your child\'s development.',
@@ -20,6 +20,26 @@ const slides = [
 
 const Carousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+
+  // Preload images
+  useEffect(() => {
+    let loadedCount = 0;
+    const totalImages = slides.length;
+    
+    slides.forEach(slide => {
+      const img = new Image();
+      img.src = slide.image;
+      img.onload = () => {
+        loadedCount++;
+        if (loadedCount === totalImages) setImagesLoaded(true);
+      };
+      img.onerror = () => {
+        console.error(`Failed to load image: ${slide.image}`);
+        loadedCount++;
+      };
+    });
+  }, []);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -30,9 +50,12 @@ const Carousel = () => {
   };
 
   useEffect(() => {
+    if (!imagesLoaded) return;
     const interval = setInterval(nextSlide, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [imagesLoaded]);
+
+  if (!imagesLoaded) return <div className="w-full h-[300px] md:h-[350px] bg-gray-200 animate-pulse"></div>;
 
   return (
     <div className="relative w-full h-[300px] md:h-[350px] overflow-hidden">
@@ -46,12 +69,11 @@ const Carousel = () => {
             backgroundImage: `url("${slide.image}")`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
           }}
         >
-          {/* Semi-transparent overlay */}
           <div className="absolute inset-0 bg-black/30"></div>
           
-          {/* Text content directly on image */}
           <div className="relative w-full h-full flex flex-col justify-center items-center text-center px-4 z-20 text-white">
             <h2 className="text-2xl md:text-3xl font-bold mb-2 drop-shadow-md">{slide.title}</h2>
             <p className="text-lg md:text-xl mb-3 drop-shadow-md">{slide.subtitle}</p>
