@@ -2,15 +2,16 @@
 import React from 'react';
 
 const services = [
-  {
-    title: 'Speech Therapy',
-    description: 'Helping children improve communication skills through specialized techniques.',
-    image: '/images/SpeechTherapy.jpg',
-  },
+  
   {
     title: 'Occupational Therapy',
     description: 'Enhancing fine motor skills, coordination, and daily living activities.',
     image: '/images/occupationaltherapy.jpg',
+  },
+  {
+    title: 'Speech Therapy',
+    description: 'Helping children improve communication skills through specialized techniques.',
+    image: '/images/SpeechTherapy.jpg',
   },
   {
     title: 'Behavioral Therapy',

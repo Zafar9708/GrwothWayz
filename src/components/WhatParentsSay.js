@@ -1,68 +1,83 @@
-import React, { useState } from 'react';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+'use client'
+import React from 'react';
+import { FaChild, FaUserMd, FaHeart, FaBrain } from 'react-icons/fa';
 
-const testimonials = [
-  {
-    name: 'Aarav’s Mom',
-    message: 'GrowthWayz has transformed my child’s confidence and communication. Truly grateful!',
-  },
-  {
-    name: 'Riya’s Dad',
-    message: 'Excellent staff and personalized attention. My daughter enjoys every session here.',
-  },
-  {
-    name: 'Kabir’s Parents',
-    message: 'From speech delay to active conversation, the improvement is visible. Thank you!',
-  },
-  {
-    name: 'Zoya’s Mom',
-    message: 'The team is supportive, professional, and always welcoming. Highly recommended.',
-  },
-  {
-    name: 'Advait’s Dad',
-    message: 'Our child loves the center. The structured programs make a huge difference.',
-  },
-];
-
-const WhatParentsSay = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
-  };
-
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
-  };
-
+export default function OurExpertTeam() {
   return (
-    <div className="py-16 bg-gray-50" data-aos="zoom-in-up">
-      <h2 className="text-3xl font-bold text-center mb-4 text-indigo-600">What Parents Say</h2>
-      <p className="text-center text-gray-600 mb-10">Here’s how GrowthWayz impacted families</p>
-
-      <div className="relative max-w-3xl mx-auto px-4">
-        <div className="bg-white p-6 rounded-xl shadow-lg transition-all duration-500">
-          <p className="text-lg text-gray-700 italic mb-4">“{testimonials[currentIndex].message}”</p>
-          <h4 className="text-right font-semibold text-indigo-600">– {testimonials[currentIndex].name}</h4>
+    <div className="py-16 px-6 md:px-20 bg-white" data-aos="zoom-in-up">
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+            Our Expert Team
+          </h2>
+          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            Dedicated professionals committed to your child's growth and development
+          </p>
         </div>
 
-        <div className="flex justify-between mt-6 px-4">
-          <button
-            onClick={prevSlide}
-            className="text-indigo-600 hover:text-indigo-800 transition"
-          >
-            <ArrowLeft />
-          </button>
-          <button
-            onClick={nextSlide}
-            className="text-indigo-600 hover:text-indigo-800 transition"
-          >
-            <ArrowRight />
+        {/* Team Features Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Feature 1 */}
+          <div className="text-center p-6 bg-blue-50 rounded-xl" data-aos="zoom-in-up">
+            <div className="flex justify-center mb-4">
+              <div className="bg-blue-100 p-4 rounded-full">
+                <FaChild className="text-blue-600 text-2xl" />
+              </div>
+            </div>
+            <h3 className="text-xl font-bold text-gray-800 mb-2">Pediatric Specialists</h3>
+            <p className="text-gray-600">
+              Certified therapists with specialized training in child development
+            </p>
+          </div>
+
+          {/* Feature 2 */}
+          <div className="text-center p-6 bg-purple-100 rounded-xl" data-aos="zoom-in-up">
+            <div className="flex justify-center mb-4">
+              <div className="bg-yellow-100 p-4 rounded-full">
+                <FaBrain className="text-yellow-600 text-2xl" />
+              </div>
+            </div>
+            <h3 className="text-xl font-bold text-gray-800 mb-2">Nurturing Environment</h3>
+            <p className="text-gray-600">
+              Warm, welcoming space where children feel safe to learn and grow
+            </p>
+          </div>
+
+          {/* Feature 3 */}
+          <div className="text-center p-6 bg-yellow-50 rounded-xl" data-aos="zoom-in-up">
+            <div className="flex justify-center mb-4">
+              <div className="bg-yellow-100 p-4 rounded-full">
+                <FaHeart className="text-yellow-600 text-2xl" />
+              </div>
+            </div>
+            <h3 className="text-xl font-bold text-gray-800 mb-2">Compassionate Care</h3>
+            <p className="text-gray-600">
+              Warm, patient approach that makes children feel comfortable
+            </p>
+          </div>
+
+          {/* Feature 4 */}
+          <div className="text-center p-6 bg-purple-50 rounded-xl" data-aos="zoom-in-up">
+            <div className="flex justify-center mb-4">
+              <div className="bg-purple-100 p-4 rounded-full">
+                <FaBrain className="text-purple-600 text-2xl" />
+              </div>
+            </div>
+            <h3 className="text-xl font-bold text-gray-800 mb-2">Innovative Methods</h3>
+            <p className="text-gray-600">
+              Using evidence-based, cutting-edge therapeutic techniques
+            </p>
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="text-center mt-12">
+          <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-8 py-3 rounded-full text-lg transition-all shadow-lg">
+            Meet Our Team
           </button>
         </div>
       </div>
     </div>
   );
-};
-
-export default WhatParentsSay;
+}

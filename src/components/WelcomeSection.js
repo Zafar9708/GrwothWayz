@@ -22,10 +22,9 @@ export default function WelcomeSection() {
 
         <h3 className="text-xl font-semibold text-red-600 mb-2">ABOUT US</h3>
         <p className="text-gray-700 text-base leading-relaxed mb-4">
-          At GrowthWayz, we are dedicated to nurturing the intellectual, emotional,
-          and social growth of children through personalized learning and
-          expert-guided development programs. Our mission is to empower each child
-          with confidence, creativity, and skills to thrive in a dynamic world.
+          Welcome to our hub of diverse services designed to support individuals facing unique challenges.
+          Explore a range of speciallized offerings crafted to empower and uplift,tailored for those navigating life's hurdles with resilience and determination.
+          
         </p>
 
         {/* Learn More Button */}

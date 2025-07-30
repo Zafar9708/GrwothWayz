@@ -37,26 +37,31 @@ const Navbar = () => {
                         <Image
                             src="/images/logo.png"
                             alt="GrowthWayz Logo"
-                            width={110}        // smaller size
-                            height={110}       // make square
+                            width={110}
+                            height={110}
                             priority
                         />
                     </div>
                 </Link>
 
                 {/* Desktop Menu */}
-<div className="hidden md:flex gap-6 font-medium items-center relative">                    <Link href="/" className="hover:bg-blue-800 px-2 py-1 rounded">Home</Link>
+                <div className="hidden md:flex gap-6 font-medium items-center relative">
+                    <Link href="/" className="hover:bg-blue-800 px-2 py-1 rounded">Home</Link>
                     <Link href="/about" className="hover:bg-blue-800 px-2 py-1 rounded">About Us</Link>
 
                     {/* Services Dropdown */}
                     <div
                         className="relative group"
                         onMouseEnter={() => setIsServicesOpen(true)}
-                        onMouseLeave={() => setIsServicesOpen(false)}
+                        onMouseLeave={() => setTimeout(() => setIsServicesOpen(false), 200)}
                     >
                         <span className="cursor-pointer hover:bg-blue-800 px-2 py-1 rounded">Services We Offer</span>
                         {isServicesOpen && (
-                            <div className="absolute bg-white text-black mt-2 p-3 rounded shadow-md z-50 w-56">
+                            <div 
+                                className="absolute bg-white text-black mt-2 p-3 rounded shadow-md z-50 w-56"
+                                onMouseEnter={() => setIsServicesOpen(true)}
+                                onMouseLeave={() => setIsServicesOpen(false)}
+                            >
                                 {services.map((item, index) => (
                                     <Link
                                         key={index}
@@ -74,11 +79,15 @@ const Navbar = () => {
                     <div
                         className="relative group"
                         onMouseEnter={() => setIsTreatmentsOpen(true)}
-                        onMouseLeave={() => setIsTreatmentsOpen(false)}
+                        onMouseLeave={() => setTimeout(() => setIsTreatmentsOpen(false), 200)}
                     >
                         <span className="cursor-pointer hover:bg-blue-800 px-2 py-1 rounded">Treatments</span>
                         {isTreatmentsOpen && (
-                            <div className="absolute bg-white  text-black mt-2 p-3 rounded shadow-md z-50 w-56">
+                            <div 
+                                className="absolute bg-white text-black mt-2 p-3 rounded shadow-md z-50 w-56"
+                                onMouseEnter={() => setIsTreatmentsOpen(true)}
+                                onMouseLeave={() => setIsTreatmentsOpen(false)}
+                            >
                                 {treatments.map((item, index) => (
                                     <Link
                                         key={index}
@@ -120,6 +129,7 @@ const Navbar = () => {
                                     key={index}
                                     href={`/services/${item.replace(/\s+/g, '-').toLowerCase()}`}
                                     className="block py-1 text-sm"
+                                    onClick={() => setIsMenuOpen(false)}
                                 >
                                     {item}
                                 </Link>
@@ -133,8 +143,9 @@ const Navbar = () => {
                             {treatments.map((item, index) => (
                                 <Link
                                     key={index}
-                                    href={`/treatments/${item.replace(/\s+/g, '-').toLowerCase()}`}
+                                    href={`/services/${item.replace(/\s+/g, '-').toLowerCase()}`}
                                     className="block py-1 text-sm"
+                                    onClick={() => setIsMenuOpen(false)}
                                 >
                                     {item}
                                 </Link>

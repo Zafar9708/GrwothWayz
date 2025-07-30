@@ -9,17 +9,18 @@ export default function Footer() {
         <div>
           <h3 className="text-xl font-bold text-blue-600 mb-4">ABOUT US</h3>
           <p className="text-sm leading-relaxed">
-            GrowthWayz is a dedicated platform for child development, focusing on cognitive, emotional, and physical well-being of children. We offer expert care to help children reach their full potential.
-          </p>
-          <p className="mt-4 font-semibold text-sm text-blue-200">Dr. Laiba Siddiqui</p>
+          Welcome to our hub of diverse services designed to support individuals facing unique challenges.
+          Explore a range of speciallized offerings crafted to empower and uplift,tailored for those navigating life's hurdles with resilience and determination.
+                    </p>
+          {/* <p className="mt-4 font-semibold text-sm text-blue-200">Dr. Laiba Siddiq</p> */}
         </div>
 
         {/* Our Services */}
         <div>
           <h3 className="text-xl font-bold text-blue-600 mb-4">OUR SERVICES</h3>
           <ul className="text-sm space-y-2">
-            <li>Speech Therapy</li>
             <li>Occupational Therapy</li>
+            <li>Speech Therapy</li>
             <li>Behavioral Therapy</li>
             <li>Parent Counseling</li>
             <li>Developmental Screening</li>
@@ -57,7 +58,7 @@ export default function Footer() {
           </div>
           <div className="flex items-center gap-2 mb-4">
             <FaEnvelope className="text-red-600" />
-            <span>Email: laiba3959@gmail.com</span>
+            <span>Email: growthwayz@gmail.com</span>
           </div>
           <h4 className="text-base font-semibold mb-2">FOLLOW US</h4>
           <div className="flex gap-4 text-lg">
